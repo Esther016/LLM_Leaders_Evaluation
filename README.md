@@ -1,6 +1,4 @@
-## README.md
-
-### LLM Leaders Ideology Evaluation
+## LLM Leaders Ideology Evaluation
 
 This repository provides a workflow to evaluate the political ideology of heads of government using Large Language Models (LLMs). The script processes leadership data from the **“Identifying Ideologues”** dataset, queries a model for ideological classification, and stores the evaluation results for analysis.
 
