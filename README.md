@@ -1,24 +1,147 @@
----
-title: "Global Leadership Project (v1)"
-sdk: "datasets"
-taskCategories:
-  - "research"
-tags:
-  - "descriptive representation"
-  - "political leadership"
-  - "political science"
-  - "social science"
-  - "demographics"
-license: "mit"
-datasets:
-  - "GlobalLeadershipProject_v1.csv"
----
-**A distilled dataset of more than 50,000 political elites coded on gender, ethnicity, language, religion, office type, and more.**  
-The release accompanies the open‑access paper:
+## README.md
 
-> John Gerring, Connor T. Jerzak & Erzen Öncel (2024).  
-> “The Composition of Descriptive Representation.” *American Political Science Review* 118(2): 784‑801.  
-> https://doi.org/10.1017/S0003055423000680
+### LLM Leaders Ideology Evaluation
+
+This repository provides a workflow to evaluate the political ideology of heads of government using Large Language Models (LLMs). The script processes leadership data from the **“Identifying Ideologues”** dataset, queries a model for ideological classification, and stores the evaluation results for analysis.
+
+---
+
+### 1. Project Overview
+
+Political ideology plays a central role in shaping government behavior and policy outcomes, yet systematic and cross-national ideology evaluation remains challenging. By leveraging LLMs, this project attempts to:
+
+1. Identify heads of government and the year they served.
+2. Provide short contextual prompts for each leader.
+3. Use a Large Language Model to infer their political ideology.
+4. Compare model-generated ideology to the original expert-coded data labels.
+
+This project contributes to the growing set of studies validating whether LLMs can meaningfully classify political ideology in real-world geopolitical contexts.
+
+---
+
+### 2. Data Source
+
+This project uses the publicly available dataset:
+
+**Identifying Ideologues: A Global Dataset of Heads of Government and Their Political Ideology**
+Harvard Dataverse
+Persistent ID: doi:10.7910/DVN/RTLDXF
+
+Variables used in this project:
+
+| Variable       | Meaning                                              |
+| -------------- | ---------------------------------------------------- |
+| `country_name` | Country of the leader                                |
+| `year`         | Year of leadership                                   |
+| `hog`          | Name of head of government                           |
+| `hog_ideology` | Expert-coded ideology label (Left/Right/Center etc.) |
+
+Only the `identifying_ideologues.tab` subset is required for this pipeline.
+
+Please cite the dataset if used in academic work (see citation section below).
+
+---
+
+### 3. Pipeline Summary
+
+The main process is implemented in **`leaders_evaluation.py`**:
+
+1. Load leadership dataset (`.tab` or `.csv`)
+2. Clean and filter rows with available ideology and leader name
+3. Generate prompts based on:
+
+   * leader name
+   * country
+   * year
+4. Query LLM:
+
+   * classifies ideology along Left / Center-Left / Center / Center-Right / Right
+   * returns short justification
+5. Store results into an Excel spreadsheet (`.xlsx`)
+6. Provide comparison vs original expert labels
+
+---
+
+### 4. Output Example
+
+An example output spreadsheet is included:
+
+```
+LLM_Leader_Evaluation_20251018_204819.xlsx
+```
+
+This shortened version contains preliminary evaluation results for demonstration.
+Full evaluation may produce a more complete file with misalignment/error logs, richer justification text, and prompt metadata.
+
+---
+
+### 5. Requirements
+
+Minimal recommended environment:
+
+```bash
+Python 3.9+
+requests>=2.25.0
+pandas>=1.3.0
+numpy>=1.21.0
+openpyxl>=3.0.0 
+urllib3>=1.26.0
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+---
+
+### 6. How to Run
+
+```bash
+python leaders_evaluation.py 
+```
+with file `identifying_ideologues.tab` in the same folder.
+
+Optional arguments: You can choose preferred models available on Aihubmix official website by adding or deleting models within the python file.
+
+---
+
+### 7. File Structure
+
+```
+├── leaders_evaluation.py         # Main evaluation script
+├── leaders_result_short.xlsx     # Example results
+├── README.md                     # Documentation
+└── (dataset not included, download separately)
+```
+
+Dataset should be downloaded manually due to licensing terms.
+
+---
+
+### 8. Citation
+
+Dataset reference:
+
+R. B. Gerring, M. Hoffman, D. Zegers, “Identifying Ideologues: A Global Dataset of Heads of Government and Their Political Ideology.” Harvard Dataverse, 2023. doi:10.7910/DVN/RTLDXF
+
+If using this workflow in academic writing, please cite:
+
+* the Dataverse dataset (required), and
+* this repository (software citation recommended).
+
+---
+
+### 9. Rough Conclusion (Interim)
+
+This early-stage experiment shows that:
+
+* LLMs can infer ideology signals from minimal prompts (name + country + year).
+* Performance varies across regions and historical periods.
+* Misalignment occurs more often for ideologically ambiguous or short-term leaders.
+* This approach may support further research on political history and machine learning political science applications.
+
+A more detailed analysis will be provided as complete results become available.
 
 ---
 
@@ -32,30 +155,8 @@ The release accompanies the open‑access paper:
 | **Identities coded** | Gender · Ethnicity · Language · Religion |
 | **File size** | ~92.8 MB CSV |
 
-
-## Files included
-| File | Description |
-|------|-------------|
-| `GlobalLeadershipProject_v1.csv` | Tabular data (leaders × variables) |
-| `LICENSE` | MIT |
-
-## Reference
-
-John Gerring, Connor T. Jerzak, Erzen Öncel. The Composition of Descriptive Representation. _American Political Science Review_, 118(2): 784-801, 2024.
-
-```
-@article{gerring2024composition,
-  title={The Composition of Descriptive Representation},
-  author={Gerring, John and Connor T. Jerzak and Erzen \"{O}ncel},
-  journal={American Political Science Review},
-  year={2024},
-  volume={118},
-  number={2},
-  pages={784-801}
-}
-```
-
-## Covariates covered 
+## Appendix
+### Covariates covered 
 
 |   #|Column Name                    |
 |---:|:------------------------------|
