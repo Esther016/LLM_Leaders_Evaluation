@@ -234,8 +234,6 @@ def clean_and_validate_json(text):
         return json.dumps(result)
 
 
-# ... (其他函数和配置保持不变，包括 clean_and_validate_json 函数)
-
 # ========== 数据处理与 LLM 调用主逻辑（最终修正版：按 term_id 匹配）==========
 def process_leader_evaluation():
     if not API_KEY:
@@ -377,4 +375,5 @@ def process_leader_evaluation():
 
 # ========== 主入口 ==========
 if __name__ == "__main__":
+
     process_leader_evaluation()
