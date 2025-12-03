@@ -62,11 +62,13 @@ The main process is implemented in **`leaders_evaluation.py`**:
 
 ### 4. Output Example
 
-An example output spreadsheet is included:
+An example output spreadsheet is included in the folder`sample-outcome`:
 
 ```
 LLM_Leader_Evaluation_20251018_204819.xlsx
 ```
+[Screenshot of the sample result]
+<img src="https://github.com/Esther016/LLM_Leaders_Evaluation/blob/main/image/sample-outcome.png?raw=true" alt="sample-outcome" width="800">
 
 This shortened version contains preliminary evaluation results for demonstration.
 Full evaluation may produce a more complete file with misalignment/error logs, richer justification text, and prompt metadata.
